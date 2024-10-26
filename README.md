@@ -1,2 +1,2 @@
-# airborne_tool_suite
-Python tools for airborne science
+# ATS: The Airborne Tool Suite
+Python tools for airborne science: mission planning, etc.
