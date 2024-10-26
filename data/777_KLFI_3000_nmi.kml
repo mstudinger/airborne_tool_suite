@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document id="root_doc">
+    <Schema id="777_KLFI_3000_nmi" name="777_KLFI_3000_nmi">
+      <SimpleField name="label" type="string"/>
+      <SimpleField name="range_nmi" type="float"/>
+      <SimpleField name="platform" type="string"/>
+      <SimpleField name="airfield" type="string"/>
+    </Schema>
+    <Schema id="_77_KLFI_3000_nmi.schema">
+      <SimpleField name="label" type="string"/>
+      <SimpleField name="range_nmi" type="float"/>
+      <SimpleField name="range_km" type="float"/>
+      <SimpleField name="platform" type="string"/>
+      <SimpleField name="airfield" type="string"/>
+    </Schema>
+    <Document id="_77_KLFI_3000_nmi">
+      <name>777_KLFI_3000_nmi</name>
+    </Document>
+  </Document>
+</kml>
