@@ -86,6 +86,7 @@ def range_to_gdf(
     
     # add attributes (primarily used for labelling in QGIS)
     range_circle_gdf.loc[:, "label"] = platform + ' ' + f"{max_range*0.5:.0f}" + ' ' + range_unit + ' out-and-back range'
+    range_circle_gdf.loc[:, "max_range_nmi"] = int(f"{max_range:.0f}")
     range_circle_gdf.loc[:, "range_nmi"] = half_range.to(u.imperial.nmi).value
     range_circle_gdf.loc[:, "range_km"]  = half_range.to(u.km).value
     range_circle_gdf.loc[:, "platform"]  = platform
@@ -96,14 +97,40 @@ def range_to_gdf(
     
     return range_circle_gdf, f_name_gis
 
-# test function
+# execute function as script, save GIS file and plot map and export as HTML file (optional)
 if __name__ == '__main__':
     
+    SAVE_GIS = True
+    PLOT_MAP = True
+    
+    # set parameters
     # https://en.wikipedia.org/wiki/Langley_Air_Force_Base
     lat_o    =  37.082778
     lon_o    = -76.360556
     airfield = 'KLFI'
     platform = '777'
+    max_range = 3000
     
-    # execute function for testing    
-    gdf, f_name = range_to_gdf(lon_o, lat_o, airfield, platform, 3000, "nmi")
+    # execute function    
+    range_circle_gdf, f_name = range_to_gdf(lon_o, lat_o, airfield, platform, max_range, "nmi")
+    
+    # save file in desired GIS format
+    if SAVE_GIS:
+        f_name_dir = r"..\..\data"
+        f_name_short = f_name + '.gpkg'
+        f_name_gis = os.path.join(f_name_dir,f_name_short)    
+        range_circle_gdf.to_file(filename = f_name_gis, driver = "GPKG")
+        
+        print("\n\tAircraft  : %s" %(platform))
+        print("\tRange [nm]: %d" %(max_range))
+        print("\tSaved file: %s" %(f_name_short))
+    
+    # plot range circle with OpenStreetMap as basemap and save as HTML file
+    if PLOT_MAP:
+        folium_map = range_circle_gdf.explore()
+        f_name_html = f_name_gis.replace('.gpkg','.html')
+        folium_map.save(f_name_html)
+
+    import webbrowser
+    webbrowser.open(f_name_html)
+
