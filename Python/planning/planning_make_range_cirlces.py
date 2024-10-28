@@ -68,11 +68,14 @@ def range_to_gdf(
 
     # create waypoints for half-range circe on WGS-8 ellipsoid
     wgs84 = pm.Ellipsoid.from_name('wgs84') # units are in meters
-    azi = range(0,360,1)
-    lat, lon = pmv.vreckon(lat_o, lon_o, half_range.to(u.m).value, azi, ell = wgs84)
-    # need to wrap longitudes to ±180° for exporting geographic coordinates in GeoDataFrame
+    
+    # longitudes must be within ±180° for exporting geographic coordinates as GeoDataFrame
     # 0° to 360° is not supported
-    lon = np.mod(lon - 180.0, 360.0) - 180.0
+    # if needed use this to wrap longitude. note that order of vertices can cause problems for plotting with Folium
+    # lon = np.mod(lon - 180.0, 360.0) - 180.0
+    
+    azi = range(-180,180,1) 
+    lat, lon = pmv.vreckon(lat_o, lon_o, half_range.to(u.m).value, azi, ell = wgs84)
     
     # create GeoDataFrame for GIS export
     # convert waypoint coordinate arrays to lists needed for geometry field
@@ -86,9 +89,9 @@ def range_to_gdf(
     
     # add attributes (primarily used for labelling in QGIS)
     range_circle_gdf.loc[:, "label"] = platform + ' ' + f"{max_range*0.5:.0f}" + ' ' + range_unit + ' out-and-back range'
-    range_circle_gdf.loc[:, "max_range_nmi"] = int(f"{max_range:.0f}")
-    range_circle_gdf.loc[:, "range_nmi"] = half_range.to(u.imperial.nmi).value
-    range_circle_gdf.loc[:, "range_km"]  = half_range.to(u.km).value
+    range_circle_gdf.loc[:, "max_range_nmi"] = float(f"{max_range:.1f}")
+    range_circle_gdf.loc[:, "range_nmi"] = float(f"{half_range.to(u.imperial.nmi).value:.1f}")
+    range_circle_gdf.loc[:, "range_km"]  = float(f"{half_range.to(u.km).value:.1f}")
     range_circle_gdf.loc[:, "platform"]  = platform
     range_circle_gdf.loc[:, "location"]  = location
      
@@ -108,8 +111,41 @@ if __name__ == '__main__':
     lat_o    =  37.082778
     lon_o    = -76.360556
     airfield = 'KLFI'
-    platform = '777'
-    max_range = 3000
+    
+    # # https://en.wikipedia.org/wiki/Hobart_Airport
+    # lat_o    =  -42.836667
+    # lon_o    =  147.51
+    # airfield = 'YMHB'
+    
+    # # https://en.wikipedia.org/wiki/Perth_Airport
+    # lat_o   =  -31.94
+    # lon_o   =  115.965
+    # airfield = 'YPPH'
+    
+    # # https://en.wikipedia.org/wiki/Cape_Town_International_Airport
+    # lat_o   =  -33.969444
+    # lon_o   =   18.597222
+    # airfield = ' FACT'
+    
+    # # https://en.wikipedia.org/wiki/Ushuaia_%E2%80%93_Malvinas_Argentinas_International_Airport
+    # lat_o    =  -54.843333
+    # lon_o    =  -68.294444
+    # airfield = 'SAWH'
+    
+    # # https://en.wikipedia.org/wiki/Presidente_Carlos_Ib%C3%A1%C3%B1ez_del_Campo_International_Airport
+    # lat_o    =  -53.0025
+    # lon_o    =  -70.854444
+    # airfield = 'SCCI'
+    
+    # # https://en.wikipedia.org/wiki/Christchurch_Airport
+    # lat_o    =  -43.489444
+    # lon_o    =  172.532222
+    # airfield = 'NZCH'
+    
+    # Cape Town
+    
+    platform = 'B777-200ER'
+    max_range = 7000
     
     # execute function    
     range_circle_gdf, f_name = range_to_gdf(lon_o, lat_o, airfield, platform, max_range, "nmi")
@@ -121,13 +157,19 @@ if __name__ == '__main__':
         f_name_gis = os.path.join(f_name_dir,f_name_short)    
         range_circle_gdf.to_file(filename = f_name_gis, driver = "GPKG")
         
-        print("\n\tAircraft  : %s" %(platform))
-        print("\tRange [nm]: %d" %(max_range))
-        print("\tSaved file: %s" %(f_name_short))
+        print("\n\tAircraft        : %s" %(platform))
+        print("\tMax range [nmi] : %d" %(max_range))
+        print("\tGIS range circle: %s" %(f_name_short))
     
     # plot range circle with OpenStreetMap as basemap and save as HTML file
     if PLOT_MAP:
+        #import folium
+        #folium_map = folium.Map(location=[10, 45], zoom_start=16, max_zoom=25)
+        #folium_map = folium.Map(location=[lat_o, lon_o])
+
+        #folium_map = range_circle_gdf.explore().add_to(folium_map)
         folium_map = range_circle_gdf.explore()
+
         f_name_html = f_name_gis.replace('.gpkg','.html')
         folium_map.save(f_name_html)
 
