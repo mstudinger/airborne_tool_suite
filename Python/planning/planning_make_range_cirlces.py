@@ -145,7 +145,7 @@ if __name__ == '__main__':
     # Cape Town
     
     platform = 'B777-200ER'
-    max_range = 7000
+    max_range = 1000
     
     # execute function    
     range_circle_gdf, f_name = range_to_gdf(lon_o, lat_o, airfield, platform, max_range, "nmi")
