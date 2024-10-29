@@ -28,14 +28,14 @@ def range_to_gdf(
     lon_o:float,     # longitude of origin in decimal degrees
     lat_o:float,     # latitude  of origin in decimal degrees
     location:str,    # location name. e.g., airfield code such as "KLFI"
-    platform:str,    # name of platform. e.g. "777", "DHC-6"
+    platform:str,    # name of platform. e.g. "B777-200ER", "DHC-6"
     max_range:float, # platform max_range. will be converted to out-and-back range.
     range_unit:str,  # distance unit for range. must be "nmi" or "km".
     ) -> object:     # GeoDataFrame with range circle and metadata and filename
 
     """
     Purpose     : create GeoDataFrame with range circle and return format independent GIS file name (no extension)
-    Usage       : gdf, f_name = range_to_gdf(-76.360556,37.082778,'KLFI','777',3000,"nmi")
+    Usage       : gdf, f_name = range_to_gdf(-76.360556,37.082778,'KLFI','B777-200ER',3000,"nmi")
     Dependencies: os, numpy, pymap3d, geopandas, shapely, astropy
     """
     
@@ -66,7 +66,7 @@ def range_to_gdf(
     else:    
         os.sys.exit("max_range must be of type float and > 0")
 
-    # create waypoints for half-range circe on WGS-8 ellipsoid
+    # create waypoints for half-range circle on WGS-84 ellipsoid
     wgs84 = pm.Ellipsoid.from_name('wgs84') # units are in meters
     
     # longitudes must be within ±180° for exporting geographic coordinates as GeoDataFrame
