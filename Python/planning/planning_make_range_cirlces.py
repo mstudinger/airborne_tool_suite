@@ -108,9 +108,9 @@ if __name__ == '__main__':
     
     # set parameters
     # https://en.wikipedia.org/wiki/Langley_Air_Force_Base
-    lat_o    =  37.082778
-    lon_o    = -76.360556
-    airfield = 'KLFI'
+    # lat_o    =  37.082778
+    # lon_o    = -76.360556
+    # airfield = 'KLFI'
     
     # # https://en.wikipedia.org/wiki/Hobart_Airport
     # lat_o    =  -42.836667
@@ -142,7 +142,15 @@ if __name__ == '__main__':
     # lon_o    =  172.532222
     # airfield = 'NZCH'
     
-    # Cape Town
+    # # https://en.wikipedia.org/wiki/Cape_Town_International_Airport
+    # lat_o    = -33.969444
+    # lon_o    =  18.597222 	
+    # airfield = 'FACT'
+    
+    # # https://en.wikipedia.org/wiki/Thwaites_Glacier
+    lat_o     = -75
+    lon_o    = -106.833333
+    airfield = 'Thwaites Glacier'
     
     platform = 'B777-200ER'
     max_range = 1000
