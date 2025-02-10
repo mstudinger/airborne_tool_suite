@@ -1,0 +1,13 @@
+Parameter, Value, Unit, Comment
+Name,NASA B777-200ER,, 
+NameShort,777,, 
+MTOW,656E3,lb,maximum take-off weight
+OEW,321E3,lb,operating empty weight incl. crew
+MissionLoad,50E3,lb,load for mission operations incl. QNCs + PAX + instruments
+FuelTotal,308E3,lb,fuel total
+FuelTotalOp,280E3,lb, operational fuel total (if tanks not completely filled)
+FuelReserveTime,90,min,
+SpeedCruise,560,kt,
+SpeedLo,275,kt,
+SpeedLoPenalty,2,,fuel burn penalty ratio for jet low-flying compared to cruise
+ETOPS,330,min,ETOPS for aircraft type (B777-200ER). not using yet
