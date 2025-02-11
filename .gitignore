@@ -5,6 +5,7 @@ __pycache__/
 
 # specific project files
 *_dev.py
+dev_*.py
 
 
 # C extensions
