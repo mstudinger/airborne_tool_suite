@@ -1,6 +1,4 @@
 Name,Country,CountryNice,ICAO,Latitude,Longitude,Color
-Punta Arenas,CHL,Chile,SCCI,-52.99,-70.85,k
-Ushuaia,ARG,Argentina,SAWH,-54.84,-68.30,r
+Ushuaia,ARG,Argentina,SAWH,-54.84,-68.3,r
 Hobart,AUS,Australia,YMHB,-42.84,147.51,b
-Perth,AUS,Australia,YPPH,-31.94,115.96,m
-Cape Town,ZAF,South Africa,FACT,-33.97,18.60,g
+Cape Town,ZAF,South Africa,FACT,-33.97,18.6,g
