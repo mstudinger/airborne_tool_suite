@@ -1,0 +1,7 @@
+Name,Country,CountryNice,ICAO,Latitude,Longitude,Color,Divert
+Fairbanks,USA,United States,PAFA,64.815,-147.856389,r,0
+Pituffik,GRL,Greenland,BGTL,76.531111,-68.703056,b,0
+Longyearbyen,NOR,Norway,ENSB,78.246111,15.465556,g,1
+Keflavik,ISL,Iceland,BIKF,63.985,-22.605556,y,0
+Iqaluit,CAN,Canada,CYFB,63.756667,-68.556111,m,1
+Tromso,NOR,Norway,ENTC,69.681389,18.917778,c,1
